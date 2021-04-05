@@ -1,0 +1,33 @@
+.messageBlock {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  transition: 0.2s box-shadow;
+}
+
+.avatar img {
+  width: 70px;
+  height: 70px;
+  border-radius: 70px;
+}
+.user {
+  padding: 0 10px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  font-size: 18px;
+}
+
+.text {
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 10px;
+  font-weight: 300;
+  font-size: 15px;
+  opacity: 0.8;
+}
+.messageBlock:hover {
+  box-shadow: 0 0 15px 0 rgba(43, 78, 78, 0.1);
+  border-right: 5px solid #fd5068;
+}

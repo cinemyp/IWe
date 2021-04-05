@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import Side from "./components/Side";
+import ProfileCard from "./components/ProfileCard";
+import Footer from "./components/Footer";
 
-function App() {
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+
+import { selectCurrentProfile } from "./store/profiles/currentProfile";
+import {
+  getProfilesAsync,
+  selectProfilesData,
+} from "./store/profiles/profiles";
+
+import s from "./style.module.css";
+
+const App = () => {
+  const dispatch = useDispatch();
+  const profiles = useSelector(selectProfilesData);
+  const currentProfile = useSelector(selectCurrentProfile);
+
+  useEffect(() => {
+    dispatch(getProfilesAsync());
+  }, []);
+  //console.log(profiles[currentProfile]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className={s.flex}>
+        <Side />
+        <div className={s.content}>
+          {profiles.length > 0 ? (
+            <ProfileCard
+              name={profiles[currentProfile].firstName}
+              photo={profiles[currentProfile].photos[0].photo}
+            />
+          ) : null}
+        </div>
+      </div>
+      <Footer />
+    </>
   );
-}
+};
 
 export default App;

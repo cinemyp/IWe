@@ -1,0 +1,16 @@
+.menu {
+  display: flex;
+  padding: 10px 20px;
+}
+
+.menuItem {
+  list-style: none;
+  margin: 0 10px;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+.menuItem.active {
+  border-bottom: 3px solid #fd5068;
+  padding-bottom: 2px;
+}
