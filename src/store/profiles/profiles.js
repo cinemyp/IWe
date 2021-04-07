@@ -38,8 +38,14 @@ export const selectProfilesData = (state) => state.profiles.data;
 
 export const getProfilesAsync = () => async (dispatch) => {
   dispatch(fetchProfiles());
-  const { data } = await axiosInstance.get();
-  dispatch(fetchProfilesResolve(data));
+  axiosInstance
+    .get()
+    .then((response) => {
+      dispatch(fetchProfilesResolve(response.data));
+    })
+    .catch((error) => {
+      dispatch(fetchProfilesReject(error.message));
+    });
 };
 
 export default slice.reducer;

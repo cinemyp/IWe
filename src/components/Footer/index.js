@@ -1,7 +1,14 @@
 import s from "./style.module.css";
 
 const Footer = () => {
-  return <div>This is footer</div>;
+  return (
+    <footer>
+      <div className={s.wrapper}>
+        <h3>THANKS FOR VISITING</h3>
+        <p>© 2021 IWe.</p>
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;

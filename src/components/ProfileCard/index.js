@@ -14,11 +14,7 @@ const ProfileCard = ({ name, photo }) => {
   return (
     <div className={s.card}>
       <div className={s.user}>
-        <img
-          className={s.user}
-          src={"data:image/png;base64," + photo}
-          alt="Profile Photo"
-        />
+        <img className={s.user} src={photo} alt="Profile Photo" />
         <div className={s.profile}>
           <div className={s.name}>{name}</div>
         </div>
