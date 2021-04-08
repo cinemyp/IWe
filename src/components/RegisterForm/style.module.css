@@ -1,0 +1,36 @@
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+input {
+  display: none;
+}
+img {
+  width: 150px;
+}
+.column {
+  width: 320px;
+  margin: 10rem;
+}
+
+.wrap {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+.column p {
+  font-size: 14px;
+  color: #fd2a7b;
+  margin-bottom: 10px;
+}
+
+.field {
+  margin-top: 1rem;
+}
+
+.avatar {
+  display: flex;
+  flex-direction: column;
+}

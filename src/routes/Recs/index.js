@@ -1,3 +1,4 @@
+import { CircularProgress } from "@material-ui/core";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,6 +9,7 @@ import { selectCurrentProfile } from "../../store/profiles/currentProfile";
 import {
   getProfilesAsync,
   selectProfilesData,
+  selectProfilesLoading,
 } from "../../store/profiles/profiles";
 
 import s from "./style.module.css";
@@ -15,21 +17,30 @@ import s from "./style.module.css";
 const RecsPage = () => {
   const dispatch = useDispatch();
   const profiles = useSelector(selectProfilesData);
+  const isLoading = useSelector(selectProfilesLoading);
   const currentProfile = useSelector(selectCurrentProfile);
 
-  useEffect(() => {
+  const getProfiles = () => {
     dispatch(getProfilesAsync());
+  };
+
+  useEffect(() => {
+    getProfiles();
   }, []);
   return (
     <div className={s.flex}>
       <Side />
       <div className={s.content}>
-        {profiles.length > 0 ? (
-          <ProfileCard
-            name={profiles[currentProfile].firstName}
-            photo={profiles[currentProfile].photos[0].photo}
-          />
-        ) : null}
+        {isLoading ? (
+          <CircularProgress />
+        ) : profiles.length > 0 ? (
+          <ProfileCard name={profiles[currentProfile].firstName} />
+        ) : (
+          <>
+            <h1>Пока нет новых профилей</h1>
+            <span onClick={() => getProfiles()}>Обновить</span>
+          </>
+        )}
       </div>
     </div>
   );
