@@ -6,11 +6,20 @@
 
 .auth {
   color: #999;
-  font-size: 22px;
+  font-size: 16px;
   font-weight: normal;
   cursor: pointer;
+  margin-top: 0 !important;
 }
 
 .auth:hover {
   color: #fd2a7b;
+}
+
+.form {
+  width: 250px;
+}
+
+.form div {
+  margin-top: 1rem;
 }

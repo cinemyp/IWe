@@ -39,7 +39,9 @@ export const selectProfilesData = (state) => state.profiles.data;
 export const getProfilesAsync = () => async (dispatch) => {
   dispatch(fetchProfiles());
   axiosInstance
-    .get()
+    .get("/api/users/", {
+      headers: { Authorization: "Bearer " + sessionStorage.getItem("idToken") },
+    })
     .then((response) => {
       dispatch(fetchProfilesResolve(response.data));
     })

@@ -1,56 +1,49 @@
+import { Button, TextField } from "@material-ui/core";
 import { useState } from "react";
-import Input from "../Input";
+import { Link } from "react-router-dom";
 import s from "./style.module.css";
 
-const LOGIN = "Log in?";
-const REGISTER = "Register?";
-
 const LoginForm = ({ onSubmit }) => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [auth, setAuth] = useState("Register?");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit &&
       onSubmit({
-        username,
+        email,
         password,
-        auth: auth === REGISTER ? "log" : "reg",
       });
   };
 
-  const onClickChangeAuth = () => {
-    if (auth === REGISTER) setAuth(LOGIN);
-    else if (auth === LOGIN) setAuth(REGISTER);
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={s.form} onSubmit={handleSubmit} autoComplete="off">
       <div>
-        <Input
-          label="Username"
-          value={username}
-          type="text"
-          name="emausernameil"
-          onChange={(e) => setUsername(e.target.value)}
+        <TextField
+          value={email}
+          label="Email"
+          variant="standard"
+          onChange={(e) => setEmail(e.target.value)}
           required
+          fullWidth
         />
       </div>
       <div>
-        <Input
-          label="Password"
+        <TextField
           value={password}
-          type="password"
-          name="password"
+          label="Password"
+          variant="standard"
           onChange={(e) => setPassword(e.target.value)}
           required
+          fullWidth
         />
       </div>
       <div className={s.wrap}>
-        <button>{auth === REGISTER ? "SIGN IN" : "SIGN UP"}</button>
-        <div className={s.auth} onClick={onClickChangeAuth}>
-          {auth}
+        <Button type="submit" size="large">
+          SIGN IN
+        </Button>
+        <div className={s.auth}>
+          <Link to="/register">Register?</Link>
         </div>
       </div>
     </form>

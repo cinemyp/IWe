@@ -6,6 +6,18 @@
   flex-direction: column;
 }
 
+.content span {
+  color: slategrey;
+  font-size: 20px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.content span:hover {
+  color: darkslategray;
+  transition: 0.2s ease all;
+}
+
 .flex {
   display: flex;
 }
