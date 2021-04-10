@@ -17,10 +17,16 @@ const RegisterPage = () => {
       email: email,
       password: password,
       genderid: gender,
-      interestedingenderid: gender === 0 ? 1 : 0,
+      avatar: avatar,
     };
+    var file = new FormData();
+    file.append("avatar", avatar);
+
+    Object.entries({ ...user }).map(([key, value]) => file.append(key, value));
+
+    console.log("file", file);
     axios
-      .post("identity/register", { ...user })
+      .post("identity/register", file)
       .then((response) => {
         history.push("/");
       })

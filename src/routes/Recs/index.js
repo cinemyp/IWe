@@ -23,7 +23,6 @@ const RecsPage = () => {
   const getProfiles = () => {
     dispatch(getProfilesAsync());
   };
-
   useEffect(() => {
     getProfiles();
   }, []);
@@ -34,7 +33,10 @@ const RecsPage = () => {
         {isLoading ? (
           <CircularProgress />
         ) : profiles.length > 0 ? (
-          <ProfileCard name={profiles[currentProfile].firstName} />
+          <ProfileCard
+            name={profiles[currentProfile].firstName}
+            photo={profiles[currentProfile].photos[0].path}
+          />
         ) : (
           <>
             <h1>Пока нет новых профилей</h1>

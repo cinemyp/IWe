@@ -8,13 +8,13 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useState } from "react";
-import Input from "../Input";
 import s from "./style.module.css";
 
 const RegisterForm = ({ onSubmit }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
+  const [avatarPreview, setAvatarPreview] = useState("");
   const [gender, setGender] = useState(1);
   const [password, setPassword] = useState("");
   const [date, setDate] = useState("2021-01-01");
@@ -32,7 +32,7 @@ const RegisterForm = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} enctype="multipart/form-data">
       <div className={s.flex}>
         <div className={s.column}>
           <div className={s.field}>
@@ -103,14 +103,15 @@ const RegisterForm = ({ onSubmit }) => {
               id="avatar"
               type="file"
               onChange={(e) => {
-                setAvatar(URL.createObjectURL(e.target.files[0]));
+                setAvatar(e.target.files[0]);
+                setAvatarPreview(URL.createObjectURL(e.target.files[0]));
               }}
             />
 
             <label htmlFor="avatar">
               <div className={s.avatar}>
                 <FormLabel>Аватар</FormLabel>
-                <img src={avatar} />
+                <img src={avatarPreview} />
               </div>
               <Button variant="contained" component="span">
                 Загрузить
