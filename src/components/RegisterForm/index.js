@@ -8,19 +8,24 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useState } from "react";
-import Input from "../Input";
+import { NotificationManager } from "react-notifications";
 import s from "./style.module.css";
 
 const RegisterForm = ({ onSubmit }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
+  const [avatarPreview, setAvatarPreview] = useState("");
   const [gender, setGender] = useState(1);
   const [password, setPassword] = useState("");
   const [date, setDate] = useState("2021-01-01");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (avatar === "") {
+      NotificationManager.warning("Please choose the avatar", "Warning");
+      return;
+    }
     onSubmit &&
       onSubmit({
         name,
@@ -32,9 +37,10 @@ const RegisterForm = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} enctype="multipart/form-data">
       <div className={s.flex}>
         <div className={s.column}>
+          <h1>Создать аккаунт</h1>
           <div className={s.field}>
             <TextField
               label="Имя"
@@ -102,15 +108,17 @@ const RegisterForm = ({ onSubmit }) => {
               accept="image/*"
               id="avatar"
               type="file"
+              name="avatar"
               onChange={(e) => {
-                setAvatar(URL.createObjectURL(e.target.files[0]));
+                setAvatar(e.target.files[0]);
+                setAvatarPreview(URL.createObjectURL(e.target.files[0]));
               }}
             />
 
             <label htmlFor="avatar">
               <div className={s.avatar}>
                 <FormLabel>Аватар</FormLabel>
-                <img src={avatar} />
+                <img src={avatarPreview} />
               </div>
               <Button variant="contained" component="span">
                 Загрузить

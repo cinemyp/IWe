@@ -2,6 +2,7 @@ import axios from "../../services/API";
 import RegisterForm from "../../components/RegisterForm";
 import s from "./style.module.css";
 import { useHistory } from "react-router";
+import { NotificationManager } from "react-notifications";
 
 const RegisterPage = () => {
   const history = useHistory();
@@ -17,21 +18,28 @@ const RegisterPage = () => {
       email: email,
       password: password,
       genderid: gender,
-      interestedingenderid: gender === 0 ? 1 : 0,
+      avatar: avatar,
     };
+    var file = new FormData();
+    file.append("avatar", avatar);
+
+    Object.entries({ ...user }).map(([key, value]) => file.append(key, value));
+
+    console.log("file", file);
     axios
-      .post("identity/register", { ...user })
+      .post("identity/register", file)
       .then((response) => {
         history.push("/");
+        NotificationManager.success("Success");
       })
-      .then((error) => {
-        console.log(error);
+      .catch((error) => {
+        console.log({ error });
+        NotificationManager.error(error.response.data, "Error");
       });
   };
 
   return (
     <div className={s.root}>
-      <h1>Создать аккаунт</h1>
       <RegisterForm onSubmit={handleClickRegisterForm} />
     </div>
   );
