@@ -8,6 +8,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useState } from "react";
+import { NotificationManager } from "react-notifications";
 import s from "./style.module.css";
 
 const RegisterForm = ({ onSubmit }) => {
@@ -21,6 +22,10 @@ const RegisterForm = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (avatar === "") {
+      NotificationManager.warning("Please choose the avatar", "Warning");
+      return;
+    }
     onSubmit &&
       onSubmit({
         name,
@@ -35,6 +40,7 @@ const RegisterForm = ({ onSubmit }) => {
     <form onSubmit={handleSubmit} enctype="multipart/form-data">
       <div className={s.flex}>
         <div className={s.column}>
+          <h1>Создать аккаунт</h1>
           <div className={s.field}>
             <TextField
               label="Имя"
@@ -102,6 +108,7 @@ const RegisterForm = ({ onSubmit }) => {
               accept="image/*"
               id="avatar"
               type="file"
+              name="avatar"
               onChange={(e) => {
                 setAvatar(e.target.files[0]);
                 setAvatarPreview(URL.createObjectURL(e.target.files[0]));

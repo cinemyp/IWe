@@ -5,6 +5,8 @@ import RecsPage from "./routes/Recs";
 import NotFoundPage from "./routes/NotFound";
 import LoginPage from "./routes/Login";
 import RegisterPage from "./routes/Register";
+import { NotificationContainer } from "react-notifications";
+import "react-notifications/lib/notifications.css";
 
 const App = () => {
   return (
@@ -17,6 +19,7 @@ const App = () => {
         <Route render={() => <Redirect to="/404" />} />
       </Switch>
       <Footer />
+      <NotificationContainer />
     </>
   );
 };

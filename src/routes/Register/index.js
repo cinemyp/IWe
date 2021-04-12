@@ -2,6 +2,7 @@ import axios from "../../services/API";
 import RegisterForm from "../../components/RegisterForm";
 import s from "./style.module.css";
 import { useHistory } from "react-router";
+import { NotificationManager } from "react-notifications";
 
 const RegisterPage = () => {
   const history = useHistory();
@@ -29,15 +30,16 @@ const RegisterPage = () => {
       .post("identity/register", file)
       .then((response) => {
         history.push("/");
+        NotificationManager.success("Success");
       })
-      .then((error) => {
-        console.log(error);
+      .catch((error) => {
+        console.log({ error });
+        NotificationManager.error(error.response.data, "Error");
       });
   };
 
   return (
     <div className={s.root}>
-      <h1>Создать аккаунт</h1>
       <RegisterForm onSubmit={handleClickRegisterForm} />
     </div>
   );
