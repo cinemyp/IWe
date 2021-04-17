@@ -37,7 +37,7 @@ const RegisterForm = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} enctype="multipart/form-data">
+    <form onSubmit={handleSubmit} encType="multipart/form-data">
       <div className={s.flex}>
         <div className={s.column}>
           <h1>Создать аккаунт</h1>

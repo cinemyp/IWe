@@ -34,7 +34,9 @@ const RegisterPage = () => {
       })
       .catch((error) => {
         console.log({ error });
-        NotificationManager.error(error.response.data, "Error");
+        if (error.response.data)
+          NotificationManager.error(error.response.data, "Error");
+        else NotificationManager.error(error.message, "Error");
       });
   };
 
