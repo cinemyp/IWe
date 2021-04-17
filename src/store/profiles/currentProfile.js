@@ -1,22 +1,68 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-const MAX_USERS = 6;
+import axiosInstance from "../../services/API";
 
 export const slice = createSlice({
   name: "currentProfile",
   initialState: {
-    value: 0,
+    isLoading: false,
+    data: {},
+    error: null,
   },
   reducers: {
-    changeProfile: (state) => ({
+    fetchCurrentProfile: (state) => ({
       ...state,
-      value: state.value === MAX_USERS ? 0 : state.value + 1,
+      isLoading: true,
+    }),
+    fetchCurrentProfileResolve: (state, action) => ({
+      ...state,
+      isLoading: false,
+      data: action.payload,
+    }),
+    fetchCurrentProfileReject: (state, action) => ({
+      ...state,
+      isLoading: false,
+      data: {},
+      error: action.payload,
+    }),
+    logout: (state) => ({
+      ...state,
+      data: {},
     }),
   },
 });
 
-export const { changeProfile } = slice.actions;
+export const {
+  fetchCurrentProfile,
+  fetchCurrentProfileResolve,
+  fetchCurrentProfileReject,
+  logout,
+} = slice.actions;
 
-export const selectCurrentProfile = (state) => state.currentProfile.value;
+export const selectCurrentProfileLoading = (state) =>
+  state.currentProfile.isLoading;
+
+export const selectCurrentProfileData = (state) => state.currentProfile.data;
+
+export const selectCurrentProfileError = (state) => state.currentProfile.error;
+
+export const getCurrentProfileAsync = () => async (dispatch) => {
+  dispatch(fetchCurrentProfile());
+  axiosInstance
+    .get("/api/profile/", {
+      headers: { Authorization: "Bearer " + sessionStorage.getItem("idToken") },
+    })
+    .then((response) => {
+      dispatch(fetchCurrentProfileResolve(response.data));
+    })
+    .catch((error) => {
+      if (error.response) {
+        dispatch(fetchCurrentProfileReject(error.response.status));
+      } else if (error.request) {
+        dispatch(fetchCurrentProfileReject(error.request.status));
+      } else {
+        dispatch(fetchCurrentProfileReject(error.message));
+      }
+    });
+};
 
 export default slice.reducer;

@@ -46,7 +46,13 @@ export const getProfilesAsync = () => async (dispatch) => {
       dispatch(fetchProfilesResolve(response.data));
     })
     .catch((error) => {
-      dispatch(fetchProfilesReject(error.message));
+      if (error.response) {
+        dispatch(fetchProfilesReject(error.response.data));
+      } else if (error.request) {
+        dispatch(fetchProfilesReject(error.request.data));
+      } else {
+        dispatch(fetchProfilesReject(error.message));
+      }
     });
 };
 

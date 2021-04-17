@@ -2,8 +2,8 @@ import { useHistory } from "react-router";
 import LoginForm from "../../components/LoginForm";
 import axiosInstance from "../../services/API";
 import { NotificationManager } from "react-notifications";
-import s from "./style.module.css";
 import { useState } from "react";
+import s from "./style.module.css";
 import { CircularProgress } from "@material-ui/core";
 
 const LoginPage = () => {
@@ -23,12 +23,14 @@ const LoginPage = () => {
       .then((response) => {
         sessionStorage.setItem("idToken", response.data);
         NotificationManager.success("Success");
-        history.push("/recs");
         setIsLoading(false);
+        history.push("/recs");
       })
       .catch((error) => {
         console.log(error.response);
-        NotificationManager.error(error.response.data, "Error");
+        if (error.response && error.response.data)
+          NotificationManager.error(error.response.data, "Error");
+        else NotificationManager.error(error.message, "Error");
         console.log("error", error);
         setIsLoading(false);
       });

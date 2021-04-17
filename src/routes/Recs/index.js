@@ -1,11 +1,10 @@
 import { CircularProgress } from "@material-ui/core";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import TinderCard from "react-tinder-card";
 import Side from "../../components/Side";
 
-import { selectCurrentProfile } from "../../store/profiles/currentProfile";
 import {
   getProfilesAsync,
   selectProfilesData,
@@ -20,7 +19,6 @@ const RecsPage = () => {
   const dispatch = useDispatch();
   const profiles = useSelector(selectProfilesData);
   const isLoading = useSelector(selectProfilesLoading);
-  const currentProfile = useSelector(selectCurrentProfile);
 
   const [profilesNum, setProfilesNum] = useState(0);
 
