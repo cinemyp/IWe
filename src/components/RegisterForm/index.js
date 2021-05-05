@@ -37,7 +37,7 @@ const RegisterForm = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} encType="multipart/form-data">
+    <form onSubmit={handleSubmit}>
       <div className={s.flex}>
         <div className={s.column}>
           <h1>Создать аккаунт</h1>
@@ -105,13 +105,15 @@ const RegisterForm = ({ onSubmit }) => {
           </div>
           <div className={s.field}>
             <input
-              accept="image/*"
+              accept="image/*,.jpeg,.jpg"
               id="avatar"
               type="file"
               name="avatar"
               onChange={(e) => {
-                setAvatar(e.target.files[0]);
-                setAvatarPreview(URL.createObjectURL(e.target.files[0]));
+                if (e.target.files[0]) {
+                  setAvatar(e.target.files[0]);
+                  setAvatarPreview(URL.createObjectURL(e.target.files[0]));
+                }
               }}
             />
 

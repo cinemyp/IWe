@@ -1,4 +1,4 @@
-import axios from "../../services/API";
+import api from "../../services/API";
 import RegisterForm from "../../components/RegisterForm";
 import s from "./style.module.css";
 import { useHistory } from "react-router";
@@ -20,21 +20,21 @@ const RegisterPage = () => {
       genderid: gender,
       avatar: avatar,
     };
-    var file = new FormData();
+    const file = new FormData();
     file.append("avatar", avatar);
 
     Object.entries({ ...user }).map(([key, value]) => file.append(key, value));
 
     console.log("file", file);
-    axios
+    api
       .post("identity/register", file)
       .then((response) => {
         history.push("/");
         NotificationManager.success("Success");
       })
       .catch((error) => {
-        console.log({ error });
-        if (error.response.data)
+        console.log("error", error);
+        if (error.response)
           NotificationManager.error(error.response.data, "Error");
         else NotificationManager.error(error.message, "Error");
       });

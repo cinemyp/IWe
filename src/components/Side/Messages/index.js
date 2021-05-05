@@ -1,11 +1,11 @@
 import MessageBlock from "./MessageBlock";
 
-const Messages = () => {
+const Messages = ({ messages }) => {
   return (
     <>
-      <MessageBlock name={"Кэролин"} text={"Ну да) сайты это круто)"} />
-      <MessageBlock name={"Жизель"} text={"Не слушай его, используй фетчи!"} />
-      <MessageBlock name={"Анастейша"} text={"АХАХА класный анек)))"} />
+      {messages.map(({ name, lastMessageText }, index) => (
+        <MessageBlock key={index} name={name} text={lastMessageText} />
+      ))}
     </>
   );
 };
