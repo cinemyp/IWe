@@ -27,6 +27,7 @@ export const slice = createSlice({
     logout: (state) => ({
       ...state,
       data: {},
+      error: null,
     }),
   },
 });
@@ -43,16 +44,20 @@ export const selectCurrentProfileLoading = (state) =>
 
 export const selectCurrentProfileData = (state) => state.currentProfile.data;
 
+export const selectCurrentProfileDataId = (state) =>
+  state.currentProfile.data.id;
+
 export const selectCurrentProfileError = (state) => state.currentProfile.error;
 
 export const getCurrentProfileAsync = () => async (dispatch) => {
   dispatch(fetchCurrentProfile());
   axiosInstance
-    .get("/api/profile/", {
+    .get("/api/profile/current/", {
       headers: { Authorization: "Bearer " + sessionStorage.getItem("idToken") },
     })
     .then((response) => {
       dispatch(fetchCurrentProfileResolve(response.data));
+      console.log("Current profile");
     })
     .catch((error) => {
       if (error.response) {

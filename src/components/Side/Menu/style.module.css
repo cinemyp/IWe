@@ -14,3 +14,6 @@
   border-bottom: 3px solid #fd5068;
   padding-bottom: 2px;
 }
+.menuItem:hover {
+  cursor: pointer;
+}

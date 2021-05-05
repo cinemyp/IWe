@@ -36,6 +36,8 @@ export const selectProfilesLoading = (state) => state.profiles.isLoading;
 
 export const selectProfilesData = (state) => state.profiles.data;
 
+export const selectProfilesError = (state) => state.profiles.error;
+
 export const getProfilesAsync = () => async (dispatch) => {
   dispatch(fetchProfiles());
   axiosInstance
@@ -44,6 +46,7 @@ export const getProfilesAsync = () => async (dispatch) => {
     })
     .then((response) => {
       dispatch(fetchProfilesResolve(response.data));
+      console.log("Get profiles");
     })
     .catch((error) => {
       if (error.response) {

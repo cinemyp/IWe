@@ -4,20 +4,14 @@ import s from "./style.module.css";
 
 const MENU = ["Matches", "Messages"];
 
-const Menu = () => {
-  const [selectedMenuItem, setSelectedMenuItem] = useState(1);
-
-  const handleClickMenuItem = (key) => {
-    setSelectedMenuItem(key);
-  };
-
+const Menu = ({ onClickMenuItem, selectedMenuItem }) => {
   return (
     <div className={s.menu}>
       {MENU.map((item, index) => (
         <div
           key={index}
-          className={cn(s.menuItem, { [s.active]: index === selectedMenuItem })}
-          onClick={() => handleClickMenuItem(index)}
+          className={cn(s.menuItem, { [s.active]: item === selectedMenuItem })}
+          onClick={() => onClickMenuItem(item)}
         >
           {item}
         </div>
