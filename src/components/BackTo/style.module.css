@@ -1,0 +1,16 @@
+.back_to {
+  align-self: flex-start;
+  position: absolute;
+  top: 35px;
+  margin-left: 30px;
+  font-size: 18px;
+}
+
+.back_to__link {
+  text-decoration: none;
+  color: #000;
+  transition: 0.2s;
+}
+.back_to__link:hover {
+  color: tomato;
+}

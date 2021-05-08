@@ -15,6 +15,7 @@ const App = () => {
         <Route path="/404" component={NotFoundPage} />
         <Route path="/" exact component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
+        <Route path="/recs" component={LayoutPage} />
       </Switch>
 
       <NotificationContainer />

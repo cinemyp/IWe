@@ -27,7 +27,8 @@
   font-size: 15px;
   opacity: 0.8;
 }
-.messageBlock:hover {
+.messageBlock:hover,
+.messageBlock.active {
   box-shadow: 0 0 15px 0 rgba(43, 78, 78, 0.1);
   border-right: 5px solid #fd5068;
   cursor: pointer;

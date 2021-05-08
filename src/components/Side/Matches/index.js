@@ -3,14 +3,14 @@ import MatchBlock from "./MatchBlock";
 const Matches = ({ matches, onClickMatchBlock }) => {
   return (
     <>
-      {matches.map((conversation, index) => (
+      {matches.map(({ id, participants }, index) => (
         <MatchBlock
           key={index}
           onClickMatchBlock={() => {
-            onClickMatchBlock(conversation.id);
+            onClickMatchBlock(id);
           }}
-          name={conversation.participants[0].user.firstName}
-          img={conversation.participants[0].user.photos[0].path}
+          name={participants[0].user.firstName}
+          img={participants[0].user.photos[0].path}
         />
       ))}
     </>
