@@ -5,12 +5,27 @@ const api = axios.create({
   baseURL: "https://localhost:44382/",
 });
 
-export const startConversation = (id) => {
-  return api({
-    url: "api/chat/start",
+export const sendMessage = (chatMessage) => {
+  api({
+    url: "/api/chat/messages",
     method: "post",
     headers: { Authorization: "Bearer " + sessionStorage.getItem("idToken") },
-    data: id,
+    data: chatMessage,
+  })
+    .then((result) => {
+      console.log("Sent", result);
+    })
+    .catch((error) => {
+      console.log("error in sending message: ", error);
+    });
+};
+
+export const startConversation = (id) => {
+  return api({
+    url: "/api/chat/start/",
+    method: "post",
+    headers: { Authorization: "Bearer " + sessionStorage.getItem("idToken") },
+    data: { conversationId: id },
   });
 };
 

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TinderCard from "react-tinder-card";
 
 import { likeUser } from "../../services/API";
+import { setEmpty } from "../../store/dialog/dialog";
 import { selectCurrentProfileData } from "../../store/profiles/currentProfile";
 
 import {
@@ -61,7 +62,9 @@ const RecsPage = () => {
       }
     }
   };
-
+  useEffect(() => {
+    dispatch(setEmpty());
+  }, []);
   useEffect(() => {
     if (currentProfile.email) {
       getProfiles();

@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { startConversation } from "../../services/API";
+import {
+  selectCurrentDialogDataId,
+  setConversationId,
+} from "../../store/dialog/dialog";
 
 import {
   getCurrentProfileAsync,
@@ -21,6 +25,7 @@ const Side = () => {
 
   const userProfile = useSelector(selectCurrentProfileData);
   const error = useSelector(selectCurrentProfileError);
+  const dialogId = useSelector(selectCurrentDialogDataId);
 
   const [conversations, setConversations] = useState([]);
   const [matches, setMatches] = useState([]);
@@ -37,12 +42,20 @@ const Side = () => {
   const handleClickMatchBlock = (id) => {
     startConversation(id)
       .then((response) => {
-        console.log("id", id);
+        openDialog(id);
       })
       .catch((error) => {
         console.log("error", error);
       });
-    history.push("/dialog");
+  };
+
+  const handleClickConversationBlock = (id) => {
+    openDialog(id);
+  };
+
+  const openDialog = (id) => {
+    dispatch(setConversationId({ id: id }));
+    history.push("/recs/dialog");
   };
 
   useEffect(() => {
@@ -95,7 +108,11 @@ const Side = () => {
         selectedMenuItem={selectedMenuItem}
       />
       {selectedMenuItem === "Messages" ? (
-        <Messages messages={conversations} />
+        <Messages
+          messages={conversations}
+          onClickMessageBlock={handleClickConversationBlock}
+          openedDialog={dialogId}
+        />
       ) : (
         <Matches matches={matches} onClickMatchBlock={handleClickMatchBlock} />
       )}

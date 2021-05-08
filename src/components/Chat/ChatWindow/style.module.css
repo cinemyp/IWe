@@ -1,0 +1,11 @@
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+
+  height: 70vh;
+  transition: 0.3s;
+
+  padding: 10px;
+}

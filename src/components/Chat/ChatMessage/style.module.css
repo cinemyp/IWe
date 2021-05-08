@@ -1,0 +1,14 @@
+.message {
+  background-color: #eee;
+  padding: 10px;
+  border-radius: 5px;
+}
+.message__user {
+  font-weight: bold;
+}
+.message__text {
+  margin-top: 15px;
+}
+.message.own {
+  text-align: right;
+}
